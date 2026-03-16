@@ -160,7 +160,10 @@ const save = (key, value) => {
 };
 
 const ensureSeed = () => {
-  if (!localStorage.getItem(DEMO_KEYS.products)) {
+  const storedProducts = load(DEMO_KEYS.products, null);
+
+  if (!storedProducts || storedProducts.some((p) => !p.name.includes('Hoodie'))) {
+    localStorage.removeItem(DEMO_KEYS.products);
     save(DEMO_KEYS.products, defaultProducts);
   }
 
