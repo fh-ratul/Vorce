@@ -21,5 +21,13 @@ export const imageUrl = (path) => {
     return path;
   }
 
-  return `${import.meta.env.VITE_SERVER_URL || 'http://localhost:5000'}${path}`;
+  const isGithubPages = typeof window !== 'undefined' && window.location.hostname.endsWith('github.io');
+
+  if (isGithubPages) {
+    const normalized = path.startsWith('/') ? path.slice(1) : path;
+    return `${import.meta.env.BASE_URL}${normalized}`;
+  }
+
+  const serverUrl = import.meta.env.VITE_SERVER_URL || 'http://localhost:5000';
+  return path.startsWith('/') ? `${serverUrl}${path}` : `${serverUrl}/${path}`;
 };

@@ -3,6 +3,8 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useAuth } from '../hooks/useAuth';
 
+const isGithubPages = typeof window !== 'undefined' && window.location.hostname.endsWith('github.io');
+
 const LoginPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -55,6 +57,11 @@ const LoginPage = () => {
             {submitting ? 'Entering...' : 'Login'}
           </button>
         </form>
+        {isGithubPages && (
+          <div className="mt-5 rounded-2xl border border-gold/20 bg-gold/5 p-4 text-xs uppercase tracking-[0.15em] text-ivory/70">
+            Demo admin: admin@vorce.com / admin123
+          </div>
+        )}
         <p className="mt-6 text-sm text-ivory/60">
           No account yet? <Link to="/register" className="text-gold">Register here</Link>
         </p>
